@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンしりとり</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>ポケモンしりとり</h1>
+            <p id="status-text">ポケモンを選んでスタート！</p>
+        </header>
+
+        <main class="game-area">
+            <!-- Left Column: History -->
+            <section class="history-column">
+                <div class="column-header">
+                    <h2>履歴</h2>
+                    <span id="history-count">0匹</span>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be added here -->
+                    <div class="empty-state">まだ履歴はありません</div>
+                </div>
+            </section>
+
+            <!-- Right Column: Candidates -->
+            <section class="selection-column">
+                <div class="column-header">
+                    <h2>つぎのポケモン</h2>
+                    <div class="search-info">
+                        前のポケモン: <span id="prev-pokemon-name" class="highlight">-</span>
+                        (<span id="target-char" class="highlight">全</span> から始まる)
+                    </div>
+                </div>
+                <div id="candidate-list" class="candidate-grid">
+                    <!-- Candidates will be added here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 class="game-over-title">ゲームオーバー！</h2>
+            <p id="game-over-reason">「ん」で終わってしまいました...</p>
+            <div class="result-score">
+                続いた数: <span id="final-score">0</span>匹
+            </div>
+            <button id="restart-btn" class="primary-btn">もう一度遊ぶ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

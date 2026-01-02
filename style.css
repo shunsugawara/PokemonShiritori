@@ -1,0 +1,296 @@
+:root {
+    --primary-color: #ff5252;
+    --secondary-color: #424242;
+    --bg-color: #f0f2f5;
+    --panel-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --radius: 16px;
+    --text-color: #333;
+    --accent-blue: #448aff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    overflow: hidden; /* App-like feel */
+}
+
+/* Container */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+#status-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Main Game Area */
+.game-area {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 20px;
+    flex: 1;
+    min-height: 0; /* Important for scrolling within grid items */
+}
+
+/* Columns */
+.history-column, .selection-column {
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.column-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background: rgba(255,255,255,0.95);
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column-header h2 {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+.highlight {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1em;
+}
+
+/* History List */
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    scroll-behavior: smooth;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: white;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    animation: slideIn 0.3s ease-out;
+}
+
+.history-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.history-info .name {
+    font-weight: bold;
+    display: block;
+}
+
+.history-info .index {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.empty-state {
+    text-align: center;
+    color: #bbb;
+    margin-top: 50px;
+}
+
+/* Candidate Grid */
+.candidate-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    align-content: start;
+}
+
+.pokemon-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    border-color: var(--accent-blue);
+}
+
+.pokemon-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.pokemon-card img.loaded {
+    opacity: 1;
+}
+
+.pokemon-card .name {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #444;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 400px;
+    width: 90%;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-over-title {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.result-score {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    color: #333;
+}
+
+.primary-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: #ff3333;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    
+    .app-container {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+    .candidate-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-height: 400px; /* Limit height on mobile */
+    }
+}
